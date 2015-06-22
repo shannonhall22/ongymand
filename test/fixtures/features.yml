@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  weights: false
+  cardio: false
+  studios: false
+  classes: false
+  pool: false
+  hot_tub: false
+  basketball: false
+  raquetball: false
+  trainer: false
+  sauna: false
+  gym_id: 1
+
+two:
+  weights: false
+  cardio: false
+  studios: false
+  classes: false
+  pool: false
+  hot_tub: false
+  basketball: false
+  raquetball: false
+  trainer: false
+  sauna: false
+  gym_id: 1

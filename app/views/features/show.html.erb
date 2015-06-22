@@ -1,0 +1,61 @@
+<!-- Responsive panel example-->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Feature #<%= @feature.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl class="dl-horizontal">
+              <dt>Weights</dt>
+              <dd><%= @feature.weights %></dd>
+
+              <dt>Cardio</dt>
+              <dd><%= @feature.cardio %></dd>
+
+              <dt>Studios</dt>
+              <dd><%= @feature.studios %></dd>
+
+              <dt>Classes</dt>
+              <dd><%= @feature.classes %></dd>
+
+              <dt>Pool</dt>
+              <dd><%= @feature.pool %></dd>
+
+              <dt>Hot tub</dt>
+              <dd><%= @feature.hot_tub %></dd>
+
+              <dt>Basketball</dt>
+              <dd><%= @feature.basketball %></dd>
+
+              <dt>Raquetball</dt>
+              <dd><%= @feature.raquetball %></dd>
+
+              <dt>Trainer</dt>
+              <dd><%= @feature.trainer %></dd>
+
+              <dt>Sauna</dt>
+              <dd><%= @feature.sauna %></dd>
+
+              <dt>Gym</dt>
+              <dd><%= @feature.gym_id %></dd>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <%= link_to icon('chevron-left'), features_path, class: "btn btn-primary" %>
+
+              <%= link_to icon('edit'), edit_feature_path(@feature), class: "btn btn-warning" %>
+
+              <%= link_to icon('trash-o'), @feature, method: :delete, data: { confirm: "Do you really want to delete this feature?" }, class: "btn btn-danger" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

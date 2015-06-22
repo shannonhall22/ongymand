@@ -1,0 +1,2 @@
+module GymFeaturesHelper
+end

@@ -1,0 +1,134 @@
+<div class="row">
+  <div class="col-md-9 col-md-offset-1">
+    <h1>
+      Gyms
+    </h1>
+    <hr>
+  </div>
+</div>
+
+<!-- Responsive, Isotope-based layout -->
+
+<div class="row">
+  <div class="col-xs-2 col-xs-offset-2 gray">
+    <h4>Narrow By:</h4>
+    <%= search_form_for @q do |f| %>
+      <div class="form-group">
+        <h5><strong>Gym Name</strong></h5>
+        <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Enter text here..." %>
+      </div>
+
+      <div class="form-group">
+        <h5><strong>Gym Location</strong></h5>
+        <%= f.text_field :city_or_state_or_zip_cont, :class => "form-control", :placeholder => "Enter city, state or ZIP" %>
+      </div>
+
+      <hr>
+
+      <div class="form-group">
+        <h5><strong>Day Pass Rate:</strong></h5>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.text_field :rate_gteq, :class => "form-control", :placeholder => "Min." %>
+          </div>
+          <div class="col-md-6">
+            <%= f.text_field :rate_lteq, :class => "form-control", :placeholder => "Max." %>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="form-group">
+        <h5><strong>Features:</strong></h5>
+        <% Feature.all.each do |feature| %>
+          <p>
+            <%= check_box_tag('q[feature_id_eq_any][]', feature.id, (true if @q.feature_id_eq_any.try(:include?, feature.id))) %>
+            <%= feature.name %>
+          </p>
+        <% end %>
+      </div>
+
+      <hr>
+
+      <%= f.submit :class => "btn btn-primary" %>
+      <a href="/gyms" class="btn btn-default">Reset</a>
+    <% end %>
+  </div>
+
+
+  <div class="col-md-8 isotope-container">
+    <% @gyms.each do |gym| %>
+      <div class="col-sm-6 col-md-3 col-lg-4 isotope-item">
+        <div class="panel panel-default item-border">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= gym.name.titleize.truncate(20) %>
+              <div class="pull-right">
+                $<%= gym.rate %>
+              </div>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <dl>
+              <div class="boxed-image">
+                <dd><%= image_tag gym.image_url, class: 'img-responsive image-index' %></dd>
+              </div>
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <%= link_to icon('search-plus'), gym, class: "btn btn-primary bottom-button" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<!-- JavaScript for Isotope layout and quicksearch -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.0.0/isotope.pkgd.min.js"></script>
+<script>
+  $(function() {
+    // quick search regex
+    var qsRegex;
+
+    // init Isotope
+    var $container = $('.isotope-container');
+
+    $container.imagesLoaded(function() {
+      $container.isotope({
+        itemSelector: '.isotope-item',
+        layoutMode: 'masonry',
+        filter: function() {
+          return qsRegex ? $(this).text().match( qsRegex ) : true;
+        }
+      })
+    });
+
+    // use value of search field to filter
+    var $quicksearch = $('#quicksearch').keyup( debounce( function() {
+      qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+      $container.isotope();
+    }, 200 ) );
+
+  });
+
+  // debounce so filtering doesn't happen every millisecond
+  function debounce( fn, threshold ) {
+    var timeout;
+    return function debounced() {
+      if ( timeout ) {
+        clearTimeout( timeout );
+      }
+      function delayed() {
+        fn();
+        timeout = null;
+      }
+      timeout = setTimeout( delayed, threshold || 100 );
+    }
+  }
+</script>
+
+<!-- End responsive, Isotope-based layout example -->
