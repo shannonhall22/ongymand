@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   root to: "gyms#index"
   resources :features
   resources :gyms
+
+  get '/home',      :controller => 'static', :action => 'home'
+  get '/about',      :controller => 'static', :action => 'about'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
